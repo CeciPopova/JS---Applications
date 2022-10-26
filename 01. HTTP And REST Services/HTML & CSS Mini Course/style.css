@@ -1,0 +1,23 @@
+body {
+    margin-bottom: 0;
+    font-family: sans-serif;
+}
+
+nav {
+    background-color: rgb(255, 0, 153);
+    padding: 1px;
+    margin-left: 0 auto;
+    word-spacing: 20px;
+}
+
+nav li {
+    padding: 20px;
+    display: inline;
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+
+nav li a {
+    color: white;
+    text-decoration: none;
+}
