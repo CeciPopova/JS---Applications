@@ -3,13 +3,6 @@
 // [ ] create router.js containing hide and display of view
 // [ ] placeholders of all views
 
-
-import { homePage } from './home.js';
-import { loginPage } from "./login.js";
-import { registerPage } from "./register.js";
-import { createPage } from "./create.js";
-import { updateNav } from './util.js';
-
 //implement views
 //- create request logic
 //- DOM manipulation logic
@@ -21,6 +14,14 @@ import { updateNav } from './util.js';
 // [ ] like
 // [ ] edit
 // [ ] delete
+
+
+import { homePage } from './home.js';
+import { loginPage } from "./login.js";
+import { registerPage } from "./register.js";
+import { createPage } from "./create.js";
+import { updateNav } from './util.js';
+
 
 //showView('#home-page');
 const routes = {

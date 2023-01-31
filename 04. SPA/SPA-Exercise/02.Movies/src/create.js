@@ -15,9 +15,7 @@ async function onSubmit(e) {
     await createMovie(title, description, img);
     form.reset();
     homePage();
-
 }
-
 
 export function createPage() {
     showView(createSection);
@@ -35,7 +33,4 @@ async function createMovie(title, description, img) {
         },
         body: JSON.stringify({title, description, img })
     });
-    console.log(user.accessToken);
-
 }
-window.createMovie = createMovie;
