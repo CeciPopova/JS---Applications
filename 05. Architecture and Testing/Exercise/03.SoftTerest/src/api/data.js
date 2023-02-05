@@ -7,3 +7,7 @@ export async function getAllIdeas(){
     return api.get(endpoints.ideas);
 
 }
+
+export function createIdea(ideaData) {
+    return api.post(endpoints.create, ideaData);
+}
