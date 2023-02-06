@@ -1,7 +1,7 @@
 import {get, post} from './api.js';
 
 const endpoints ={
-    'login':'/users/login',
+    'login': '/users/login',
     'register': '/users/register',
     'logout': '/users/logout'
 }

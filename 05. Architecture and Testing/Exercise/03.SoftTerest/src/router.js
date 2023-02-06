@@ -2,11 +2,13 @@
 export function initialize(links) {
     const main = document.querySelector('main');
 
-    document.querySelector('nav').addEventListener('click', onNavigate);
+    const nav = document.querySelector('nav');
+    nav.addEventListener('click', onNavigate);
 
     const context = {
         showSection,
-        goTo
+        goTo,
+        updateNav
     };
     return context;
 
@@ -26,10 +28,21 @@ export function initialize(links) {
         }
     }
 
-    function goTo(name) {
+    function goTo(name, ...params) {
         const handler = links[name];
         if (typeof handler == 'function') {
-            handler(context);
+            handler(context, ...params);
         }
+    }
+    function updateNav() {
+        const user = localStorage.getItem('user');
+        if (user) {
+           nav.querySelectorAll('.user').forEach(e => e.style.display = 'block');
+           nav.querySelectorAll('.guest').forEach(e => e.style.display = 'none');
+        } else {
+            nav.querySelectorAll('.user').forEach(e => e.style.display = 'none');
+            nav.querySelectorAll('.guest').forEach(e => e.style.display = 'block');
+        }
+        
     }
 }

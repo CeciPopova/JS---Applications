@@ -1,3 +1,5 @@
+import { createIdea } from "../api/data.js";
+
 const section = document.getElementById('createPage');
 const form = section.querySelector('form');
 form.addEventListener('submit', onSubmit);
@@ -22,6 +24,7 @@ async function onSubmit(event) {
         description,
         img
     });
+    form.reset();
 
     ctx.goTo('/catalog');
 }
