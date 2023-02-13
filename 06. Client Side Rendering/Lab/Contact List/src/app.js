@@ -1,32 +1,32 @@
-import navBarTemplate from "./templates/navbar.js";
-import contactTemplate from "./templates/contact.js";
-import contactListTemplate from "./templates/contactList.js";
+import {render} from '../node_modules/lit-html/lit-html.js';
+import mainTemplate from './templates/main.js';
 import {getContacts} from './api.js';
-import render from './render.js';
-
 
 const rootElement = document.getElementById('root');
 
-const navbarTemplateResult = navBarTemplate();
-
-render(navbarTemplateResult, rootElement);
-
 const contacts = await getContacts();
-contactListTemplate(contacts);
+render(mainTemplate({contacts, addContactHandler}), rootElement);
 
-render(contactListTemplate(contacts), rootElement);
+//don't do this!
+function addContactHandler(e) {
+    e.preventDefault();
 
-window.addContact = function() {
+    let formData = new FormData(e.currentTarget);
+    let person = formData.get('person');
+    let phone = formData.get('phone');
+
     fetch('http://localhost:3030/jsonstore/contacts', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({person: 'Tsetsi', phone: '6984203699'})
+        body: JSON.stringify({person, phone})
+
     })
     .then(res => res.json())
     .then(contact => {
-        render(contactTemplate(contact), document.querySelector('.contact-list'));
-    })
+        let currentContacts = [...contacts, contact];
+        render(mainTemplate({contacts: currentContacts, addContactHandler}), rootElement);
+    });
 }
 

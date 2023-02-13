@@ -1,4 +1,6 @@
-const navBarTemplate = () => `
+import {html} from '../../node_modules/lit-html/lit-html.js';
+
+const navBarTemplate = (addContactHandler) => html`
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 <a class="navbar-brand" href="#">Navbar</a>
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -11,7 +13,12 @@ const navBarTemplate = () => `
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-            <button class="nav-link" onclick="addContact()">Employees</button>
+            <form @submit=${addContactHandler}>
+            <input type="text" name="person" />
+            <input type="text" name="phone" />
+            <button class="nav-link">Add Contact</button>
+        </form>
+            
         </li>
     </ul>
 </div>
