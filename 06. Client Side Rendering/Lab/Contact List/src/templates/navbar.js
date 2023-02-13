@@ -1,6 +1,6 @@
 import {html} from '../../node_modules/lit-html/lit-html.js';
 
-const navBarTemplate = (addContactHandler) => html`
+const navBarTemplate = (ctx) => html`
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 <a class="navbar-brand" href="#">Navbar</a>
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -13,12 +13,15 @@ const navBarTemplate = (addContactHandler) => html`
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-            <form @submit=${addContactHandler}>
-            <input type="text" name="person" />
-            <input type="text" name="phone" />
-            <button class="nav-link">Add Contact</button>
-        </form>
-            
+            <!---- conditional rendering ---->
+            ${ctx.contacts.length > 10
+                ? html `<span>Cannot Add Contact</span>`
+                : html ` 
+                    <form @submit=${ctx.addContactHandler}>
+                        <input type="text" name="person" />
+                        <input type="text" name="phone" />
+                        <button class="nav-link">Add Contact</button>
+                    </form>`}
         </li>
     </ul>
 </div>
