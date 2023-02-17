@@ -1,6 +1,5 @@
 import { html, render } from "../node_modules/lit-html/lit-html.js";
-import { styleMap } from '../node_modules/lit-html/directives/style-map.js'
-
+import { styleMap } from '../node_modules/lit-html/directives/style-map.js';
 import { cats } from './catSeeder.js';
 
 

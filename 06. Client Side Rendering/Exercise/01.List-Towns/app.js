@@ -1,25 +1,26 @@
 import {html, render} from '../node_modules/lit-html/lit-html.js';
 
-const btnLoadTowns = document.getElementById('btnLoadTowns');
-btnLoadTowns.addEventListener('click', getTowns);
+
+const imputTowns = document.getElementById('towns');
+const button = document.getElementById('btnLoadTowns');
+const root = document.getElementById('root');
+
+button.addEventListener('click', onClick);
 
 const listTemplate = (data) => html`
-<ul>
-    ${data.map(town => html`<li>${town}</li>`)}
-</ul>
-`;
+ <ul>
+     ${data.map(town => html`<li>${town}</li>`)}
+ </ul>
+ `;
 
-function getTowns(e) {
+function onClick(e) {
     e.preventDefault();
-
-    if ( document.getElementById('towns').value !== '') {
-        const root = document.getElementById('root');
-        const towns = document.getElementById('towns').value.split(', ');
-    
+    if (imputTowns.value !== '') {
+        const towns = imputTowns.value.split(', ');
         const result = listTemplate(towns);
+        render(result, root);
     
-        render(result,root);
-        
-        document.getElementById('towns').value = '';
+        imputTowns.value = '';
     }
+   
 }
