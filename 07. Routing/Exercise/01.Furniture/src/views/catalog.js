@@ -2,7 +2,7 @@ import { getAll } from '../api/data.js';
 import { html, until} from '../lib.js';
 
 const catalogTemplate = (dataPromise) => html`
-<div class="row space-top">
+        <div class="row space-top">
             <div class="col-md-12">
                 <h1>Welcome to Furniture System</h1>
                 <p>Select furniture from the catalog to view details.</p>
@@ -37,5 +37,5 @@ export function catalogPage(ctx) {
 async function loadItems() {
    const items = await getAll();
 
-   return items.map(itemTemplate)
+   return items.map(itemTemplate);
 }
