@@ -1,5 +1,5 @@
-import { getAll } from '../api/data.js';
-import { html, until} from '../lib.js';
+ import { getAll } from '../api/data.js';
+ import { html, until} from '../lib.js';
 
 const catalogTemplate = (dataPromise) => html`
         <div class="row space-top">
@@ -30,9 +30,9 @@ const itemTemplate = (item) => html`
             </div>
 `;
 
-export function catalogPage(ctx) {
-    ctx.render(catalogTemplate(loadItems()));
-}
+ export function catalogPage(ctx) {
+     ctx.render(catalogTemplate(loadItems()));
+ }
 
 async function loadItems() {
    const items = await getAll();
