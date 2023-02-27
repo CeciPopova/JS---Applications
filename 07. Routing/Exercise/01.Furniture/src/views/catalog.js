@@ -18,7 +18,7 @@ const itemTemplate = (item) => html`
                 <div class="card text-white bg-primary">
                     <div class="card-body">
                             <img src=${item.img} />
-                            <p>${item.desciption}</p>
+                            <p>${item.description}</p>
                             <footer>
                                 <p>Price: <span>${item.price} $</span></p>
                             </footer>

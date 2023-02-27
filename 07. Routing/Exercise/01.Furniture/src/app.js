@@ -8,6 +8,9 @@ import { editPage } from "./views/edit.js";
 import { loginPage } from "./views/login.js";
 import { registerPage } from "./views/register.js";
 
+// import * as api from './api/data.js';
+// window.api = api;
+
 const root = document.querySelector('div.container');
 document.getElementById('logoutBtn').addEventListener('click', onLogout);
 
