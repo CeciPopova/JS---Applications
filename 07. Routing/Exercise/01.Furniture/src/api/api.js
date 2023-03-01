@@ -3,6 +3,7 @@ import { clearUserData, getUserData, setUserData } from "../util.js";
 const host = 'http://localhost:3030';
 
 async function request(url, options){
+    
     try {
         const response = await fetch(host + url, options);
         if (response.ok != true) {
@@ -24,7 +25,7 @@ async function request(url, options){
 
 }
 
-function createOptions(method = 'get', data) {
+function createOptions(method, data) {
     const options = {
         method,
         headers: {}
