@@ -1,5 +1,5 @@
 
-const host = 'http://localhost:3030';
+const host = 'http://localhost:3030/';
 
 async function request(url, options) {
     try {
@@ -9,7 +9,6 @@ async function request(url, options) {
             throw new Error(err.message);
         }
         try {
-
             if (response.status === 204) {
                 return response;
             }
@@ -21,7 +20,6 @@ async function request(url, options) {
             alert(error.message);
             return error
         }
-
     } catch (error) {
         alert(error.message);
         return error;
