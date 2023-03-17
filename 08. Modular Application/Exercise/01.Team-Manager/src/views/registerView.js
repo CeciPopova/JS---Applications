@@ -19,6 +19,7 @@ async function onSubmit(e) {
     }
 
     await register(email, username, password);
+    context.updateNav();
     context.page.redirect('/');
 }
 

@@ -9,7 +9,8 @@ const endpoints = {
    'getAllMembers': 'data/members?where=status%3D%22member%22',
    'createTeam': 'data/teams',
    'teamsInfo': 'data/teams/',
-   'memberRequest': 'data/members'
+   'memberRequest': 'data/members',
+   'getOwnerTeamInfo': 'data/members'
 
 }
 
@@ -59,6 +60,12 @@ export async function updateTeamInfo(id, name, imageUrl, description) {
 
 export async function requestMember(teamId) {
     const res = await api.post(endpoints.requestMember, {teamId});
+    return res;
+}
+
+export async function getOwnerTeamInfo(teamId){
+    const url = endpoints.memberRequest + `?where=teamId%3D%22${teamId}%22&load=user%3D_ownerId%3Ausers`;
+    const res = await api.get(url);
     return res;
 }
 

@@ -13,6 +13,9 @@ async function onSubmit(e) {
     const formData = new FormData(e.target);
     try {
         await login(email, password);
+        context.updateNav();
+        context.page.redirect('/');
+
     } catch (error) {
         return context.render(createLoginTemplate(error.message))
     }
@@ -31,7 +34,7 @@ function createLoginTemplate(err) {
                 <h1>Login</h1>
             </header>
             <form @submit=${onSubmit} id="login-form" class="main-form pad-large">
-                ${err ? html`<div class="error">Error message.</div>` : ''}
+                ${err ? html`<div class="error">${err}</div>` : ''}
                 <label>E-mail: <input type="text" name="email"></label>
                 <label>Password: <input type="password" name="password"></label>
                 <input class="action cta" type="submit" value="Sign In">
