@@ -13,6 +13,7 @@ import { logout } from './api/data.js';
 
 
 const root = document.querySelector('main');
+updateNav();
 
 page(middleWare);
 page('/', homeView);
