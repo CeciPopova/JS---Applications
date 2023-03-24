@@ -33,6 +33,9 @@ export const loginView = (ctx) => {
         .then(() => {
             ctx.page.redirect('/');
 
+        })
+        .catch(err => {
+            alert(err);
         });
     }
     ctx.render(loginTemplate(submitHandler));

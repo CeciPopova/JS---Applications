@@ -11,19 +11,18 @@ const userLinks = html`
     <li><a href="/logout">Logout</a></li>
 `;
 
-const navigationTemplate = (isAutenticated) => html`
+const navigationTemplate = (user) => html`
 <nav>
     <img src="./images/headphones.png">
     <a href="/">Home</a>
     <ul>
-        <!--All user-->
         <li><a href="/catalog">Catalog</a></li>
         <li><a href="/seach">Search</a></li>
-        ${isAutenticated ? userLinks : guestLinks}
+        ${user ? userLinks : guestLinks}
     </ul>
 </nav>
 `;
 
 export const navigationView = (ctx) => {
-    return navigationTemplate();
+    return navigationTemplate(ctx.user);
 }
