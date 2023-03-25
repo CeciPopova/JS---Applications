@@ -1,4 +1,4 @@
-import { render, TemplateResult } from "../../node_modules/lit-html/lit-html.js";
+import { render, TemplateResult} from "../../node_modules/lit-html/lit-html.js";
 import { navigationView } from "../views/navigationView.js";
 
 const headerElement = document.querySelector('.header-navigation');

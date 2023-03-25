@@ -17,7 +17,7 @@ const navigationTemplate = (user) => html`
     <a href="/">Home</a>
     <ul>
         <li><a href="/catalog">Catalog</a></li>
-        <li><a href="/seach">Search</a></li>
+        <li><a href="/search">Search</a></li>
         ${user ? userLinks : guestLinks}
     </ul>
 </nav>
