@@ -28,6 +28,6 @@ const cartTemplate = (meme) => html`
 </div>`;
 
 export async function catalogView(ctx) {
-    const games = await gamesService.getAll();
-    ctx.render(catalogTemplate(games));
+    const memes = await gamesService.getAll();
+    ctx.render(catalogTemplate(memes));
 }

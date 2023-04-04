@@ -9,8 +9,8 @@ const endpoints = {
     edit: '/data/memes/'
 };
 
-export async function getRecent() {
-    return api.get(endpoints.recent);
+export async function getRecent(userId) {
+    return api.get(endpoints.recent(userId));
 }
 
 export async function getAll() {

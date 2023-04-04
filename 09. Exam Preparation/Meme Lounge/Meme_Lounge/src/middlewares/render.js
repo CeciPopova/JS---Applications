@@ -10,7 +10,7 @@ const navTemplate = (user) => html`
                 <a href="/create">Create Meme</a>
                 <div class="profile">
                     <span>Welcome, ${user.email}</span>
-                    <a href="/details">My Profile</a>
+                    <a href="/myProfile/${user._id}">My Profile</a>
                     <a href="/logout">Logout</a>
                 </div>
             </div>` 

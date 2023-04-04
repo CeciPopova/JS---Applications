@@ -3,33 +3,6 @@ import * as gameService from '../api/services.js';
 import { createSubmitHandler } from "../utils.js";
 
 
-// const editTemplate = (game, onSubmit) => html`
-// <section id="edit-page" class="auth">
-//     <form @submit=${onSubmit} id="edit">
-//         <div class="container">
-
-//             <h1>Edit Game</h1>
-//             <label for="leg-title">Legendary title:</label>
-//             <input type="text" id="title" name="title" .value=${game.title}>
-
-//             <label for="category">Category:</label>
-//             <input type="text" id="category" name="category" .value=${game.category}>
-
-//             <label for="levels">MaxLevel:</label>
-//             <input type="number" id="maxLevel" name="maxLevel" min="1" .value=${game.maxLevel}>
-
-//             <label for="game-img">Image:</label>
-//             <input type="text" id="imageUrl" name="imageUrl" .value=${game.imageUrl}>
-
-//             <label for="summary">Summary:</label>
-//             <textarea name="summary" id="summary" >${game.summary}</textarea>
-//             <input class="btn submit" type="submit" value="Edit Game">
-
-//         </div>
-//     </form>
-// </section>
-// `;
-
 const editTemplate = (meme, onSubmit) => html`
  <section id="edit-meme">
             <form @submit=${onSubmit} id="edit-form">
@@ -40,7 +13,7 @@ const editTemplate = (meme, onSubmit) => html`
                     <label for="description">Description</label>
                     <textarea id="description" placeholder="Enter Description" name="description">${meme.description}</textarea>
                     <label for="imageUrl">Image Url</label>
-                    <input id="imageUrl" type="text" placeholder="Enter Meme ImageUrl" name="imageUrl" value=${meme.imageUrl}>
+                    <input id="imageUrl" type="text" placeholder="Enter Meme ImageUrl" name="imageUrl" .value=${meme.imageUrl}>
                     <input type="submit" class="registerbtn button" value="Edit Meme">
                 </div>
             </form>

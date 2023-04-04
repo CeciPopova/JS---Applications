@@ -9,11 +9,14 @@ import { loginView } from './views/login.js';
 import { registerView } from './views/register.js';
 import { logout } from './api/user.js';
 import { addSession } from './middlewares/sessionMiddleware.js';
+import { profileView } from './views/myProfile.js';
 
 //TODO: remove after completion
-import * as api from './api/services.js';
+//import * as api from './api/services.js';
+
 // import * as api from './api/user.js';
- window.api = api;
+ //window.api = api;
+
 page(addSession);
 page(addRender);
 
@@ -24,7 +27,8 @@ page('/register', registerView);
 page('/create', createView);
 page('/details/:id', detailsView);
 page('/edit/:id', editView);
-page('/logout', onLogout)
+page('/logout', onLogout);
+page('/myProfile/:userId', profileView);
 
 
 page.start();

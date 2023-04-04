@@ -26,8 +26,7 @@ const detailsTemplate = (meme, onDelete) => html`
 export async function detailsView(ctx) {
     const memeId = ctx.params.id;
     const meme = await gameService.getById(memeId);
-    console.log(meme);
-
+   
     if (ctx.user) {
         meme.isOwner = ctx.user._id == meme._ownerId;
 
