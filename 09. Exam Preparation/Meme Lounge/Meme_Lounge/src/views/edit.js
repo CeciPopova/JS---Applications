@@ -1,6 +1,7 @@
 import { html } from "../../node_modules/lit-html/lit-html.js";
 import * as gameService from '../api/services.js';
 import { createSubmitHandler } from "../utils.js";
+import { notify } from "./notify.js";
 
 
 const editTemplate = (meme, onSubmit) => html`
@@ -33,7 +34,7 @@ async function onSubmit(ctx, data, event) {
     const memeId = ctx.params.id;
 
     if (Object.values(data).some(f => f == '')) {
-        return alert('All fields are required!');
+        return notify('All fields are required!');
     }
     
     await gameService.edit(memeId, {

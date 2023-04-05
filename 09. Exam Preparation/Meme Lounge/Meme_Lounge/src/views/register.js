@@ -1,8 +1,9 @@
 import { html } from "../../node_modules/lit-html/lit-html.js";
 import { createSubmitHandler } from "../utils.js";
 import * as userService from "../api/user.js";
+import { notify } from "./notify.js";
 
-const registerTemplate = (onSubmit) => html`
+const registerTemplate = (onSubmit, errorMsg) => html`
    <section id="register">
             <form @submit=${onSubmit}id="register-form">
                 <div class="container">
@@ -36,11 +37,11 @@ export function registerView(ctx) {
 }
 
 async function onSubmit(ctx, data, event) {
-    if (data.username == '' || data.email == "" || data.password == "") {
-        return alert("All fields are required!");
+    if (data.username == '' || data.email == '' || data.password == '') {
+        return notify("All fields are required!");
     }
     if (data.password !== data.repeatPass) {
-        return alert("Password don't match!");
+        return notify("Password don't match!");
     }
 
     await userService.register(data.username, data.email, data.password);

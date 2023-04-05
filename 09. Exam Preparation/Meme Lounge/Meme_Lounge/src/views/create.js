@@ -1,6 +1,7 @@
 import { html } from "../../node_modules/lit-html/lit-html.js";
 import { createSubmitHandler } from "../utils.js";
 import * as gameService from '../api/services.js';
+import { notify } from "./notify.js";
 
 
 const createTemplate = (onSubmit) => html`
@@ -26,7 +27,7 @@ export function createView(ctx) {
 
 async function onSubmit(ctx, data, event) {
     if (Object.values(data).some(f => f == '')) {
-        return alert('All fields are required!');
+        return notify('All fields are required!');
     }
     
     await gameService.create({
