@@ -44,7 +44,7 @@ async function onSubmit(ctx, data, event) {
         return notify("Password don't match!");
     }
 
-    await userService.register(data.username, data.email, data.password);
+    await userService.register(data.username, data.email, data.password, data.gender);
     event.target.reset();
     ctx.page.redirect("/catalog");
 }
