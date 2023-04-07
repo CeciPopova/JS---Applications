@@ -21,6 +21,6 @@ const cartTemplate = (book) => html`
     </li>`;
 
 export async function catalogView(ctx) {
-    const games = await gamesService.getAll();
-    ctx.render(catalogTemplate(games));
+    const books = await gamesService.getAll();
+    ctx.render(catalogTemplate(books));
 }

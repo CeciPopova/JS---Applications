@@ -10,10 +10,7 @@ import { registerView } from './views/register.js';
 import { logout } from './api/user.js';
 import { addSession } from './middlewares/sessionMiddleware.js';
 
-//TODO: remove after completion
-import * as api from './api/services.js';
-// import * as api from './api/user.js';
- window.api = api;
+
 page(addSession);
 page(addRender);
 
@@ -31,5 +28,5 @@ page.start();
 
 function onLogout() {
     logout();
-    page.redirect('/');
+    page.redirect('/catalog');
 }

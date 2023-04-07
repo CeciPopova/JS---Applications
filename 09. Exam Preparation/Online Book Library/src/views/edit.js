@@ -45,23 +45,23 @@ const editTemplate = (book, onSubmit) => html`
         </section>`;
 
 export async function editView(ctx) {
-    const gameId = ctx.params.id;
-    const game = await gameService.getById(gameId);
+    const bookId = ctx.params.id;
+    const book = await gameService.getById(bookId);
 
 
 
-    ctx.render(editTemplate(game, createSubmitHandler(ctx, onSubmit)));
+    ctx.render(editTemplate(book, createSubmitHandler(ctx, onSubmit)));
 }
 
 
 async function onSubmit(ctx, data, event) {
-    const gameId = ctx.params.id;
+    const bookId = ctx.params.id;
 
     if (Object.values(data).some(f => f == '')) {
         return alert('All fields are required!');
     }
     
-    await gameService.edit(gameId, {
+    await gameService.edit(bookId, {
         title: data.title,
         description: data.description,
         imageUrl: data.imageUrl,
@@ -69,5 +69,5 @@ async function onSubmit(ctx, data, event) {
     });
 
     event.target.reset();
-    ctx.page.redirect('/details/' + gameId);
+    ctx.page.redirect('/details/' + bookId);
 }
