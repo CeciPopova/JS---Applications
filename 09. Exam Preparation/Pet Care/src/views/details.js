@@ -1,9 +1,8 @@
 import { html, nothing } from "../../node_modules/lit-html/lit-html.js";
-import * as gameService from '../api/services.js';
+import { donate, getAllDonations, getOwnDonations } from "../api/donations.js";
+import { getById, deleteById } from '../api/services.js';
 
-
-
-const detailsTemplate = (pet, onDelete) => html`
+const detailsTemplate = (pet, donations, hasUser, canDonate, isOwner, onDelete, onLike) => html`
         <section id="detailsPage">
             <div class="details">
                 <div class="animalPic">
@@ -15,33 +14,66 @@ const detailsTemplate = (pet, onDelete) => html`
                         <h3>Breed: ${pet.breed}</h3>
                         <h4>Age: ${pet.age}</h4>
                         <h4>Weight: ${pet.weight}</h4>
-                        <h4 class="donation">Donation: 0$</h4>
+                        <h4 class="donation">Donation: ${donations * 100}$</h4>
                     </div>
-                    ${pet.isOwner 
-                        ? html`
-                    <div class="actionBtn">
-                        <a href="/edit/${pet._id}" class="edit">Edit</a>
-                        <a @click=${onDelete} href="javascript:void(0)" class="remove">Delete</a>
-                    </div>` 
-                    : nothing}
+                  ${petControl(pet, hasUser, canDonate, isOwner, onDelete, onLike)}
                 </div>
             </div>
         </section>`;
 
-export async function detailsView(ctx) {
-    const gameId = ctx.params.id;
-    const game = await gameService.getById(gameId);
-
-    if (ctx.user) {
-        game.isOwner = ctx.user._id == game._ownerId;
+        
+function petControl(pet, hasUser, canDonate, isOwner, onDelete, onLike) {
+    if (hasUser == false) {
+        return nothing;
     }
-    ctx.render(detailsTemplate(game, onDelete));
+    if (canDonate) {
+        return html`
+        <div class="actionBtn">
+            <a @click=${onLike} href="javascript:void(0)" class="donate">Donate</a>
+        </div>`
+    }
+    if (isOwner) {
+        return html`
+        <div class="actionBtn">
+            <a href="/edit/${pet._id}" class="edit">Edit</a>
+            <a @click=${onDelete} href="javascript:void(0)" class="remove">Delete</a>
+        </div>`
+    }
+}
+
+export async function detailsView(ctx) {
+
+    const petId = ctx.params.id;
+   
+    const requests = [
+        getById(petId),
+        getAllDonations(petId),
+
+    ]
+
+    const hasUser = Boolean(ctx.user);
+
+    if (hasUser) {
+        requests.push(getOwnDonations(petId, ctx.user._id))
+    }
+    const [pet, donations, hasDonation] = await Promise.all(requests);
+
+    const isOwner = hasUser && ctx.user._id == pet._ownerId;
+
+    const canDonate = !isOwner && hasDonation == 0;
+
+    ctx.render(detailsTemplate(pet, donations, hasUser, canDonate, isOwner, onDelete, onLike));
 
     async function onDelete() {
-        const choice = confirm(`Do you want to delete ${game.name}?`);
+        const choice = confirm(`Do you want to delete ${pet.name}?`);
         if (choice) {
-            await gameService.deleteById(gameId);
+            await deleteById(petId);
             ctx.page.redirect('/');
         }
+    }
+
+    async function onLike() {
+        await donate(petId);
+        ctx.page.redirect('/details/' + petId);
     }
 }
