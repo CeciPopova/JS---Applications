@@ -11,17 +11,20 @@ import { logout } from './api/user.js';
 import { addSession } from './middlewares/sessionMiddleware.js';
 
 
+
 page(addSession);
 page(addRender);
 
-page('/', homeView);
+
 page('/catalog', catalogView);
 page('/login', loginView);
 page('/register', registerView);
 page('/create', createView);
 page('/details/:id', detailsView);
+page('/home', homeView);
 page('/edit/:id', editView);
-page('/logout', onLogout)
+page('/logout', onLogout);
+
 
 
 page.start();

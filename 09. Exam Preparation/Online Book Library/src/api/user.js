@@ -5,8 +5,15 @@ import { setUserData, clearUserData } from '../utils.js';
 const endpoints ={
     login: '/users/login',
     register: '/users/register',
-    logout: '/users/logout'
+    logout: '/users/logout',
+    like: '/data/likes',
 };
+
+export async function makeLike(bookId) {
+    return api.post(endpoints.like, {
+         bookId 
+        });
+}
 
 export async function login(email, password) {
     const result = await api.post(endpoints.login, { email, password });

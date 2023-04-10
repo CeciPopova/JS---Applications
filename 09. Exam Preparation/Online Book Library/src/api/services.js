@@ -6,8 +6,22 @@ const endpoints = {
     create: '/data/books',
     byId: '/data/books/',
     deleteById: '/data/books/',
-    edit: '/data/books/'
+    edit: '/data/books/',
+   
+    totalLikes:  (bookId) => `/data/likes?where=bookId%3D%22${bookId}%22&distinct=_ownerId&count`,
+    userLikesByBook: (bookId, userId) => `/data/likes?where=bookId%3D%22${bookId}%22%20and%20_ownerId%3D%22${userId}%22&count`
 };
+
+export async function getUserLikeByBookId(bookId, userId) {
+    return api.get(endpoints.userLikesByBook(bookId , userId));
+}
+
+
+
+
+export async function getLikesByBookId(bookId) {
+   return api.get(endpoints.totalLikes(bookId));
+}
 
 export async function getRecent(userId) {
     return api.get(endpoints.recent(userId));

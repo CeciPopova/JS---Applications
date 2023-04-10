@@ -9,7 +9,7 @@ const navTemplate = (user) => html`
             ? html`
             <div id="user">
                 <span>Welcome, ${user.email}</span>
-                    <a class="button" href="/">My Books</a>
+                    <a class="button" href="/home">My Books</a>
                     <a class="button" href="/create">Add Book</a>
                     <a class="button" href="/logout">Logout</a>
             </div>` 
