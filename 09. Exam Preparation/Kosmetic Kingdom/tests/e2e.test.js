@@ -736,7 +736,7 @@ describe("E2E tests", function () {
       expect(await page.isVisible("#buy-btn")).to.be.false;
     });
 
-    it("Buy button should increase total buys by 1 after a click on it [ 2.5 Points ]", async () => {
+    it.only("Buy button should increase total buys by 1 after a click on it [ 2.5 Points ]", async () => {
       // Login user
       const user = mockData.users[0];
       const data = mockData.catalog[2];

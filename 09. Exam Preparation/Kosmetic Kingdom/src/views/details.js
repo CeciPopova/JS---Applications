@@ -1,8 +1,9 @@
 import { html, nothing } from "../../node_modules/lit-html/lit-html.js";
 import * as gameService from '../api/services.js';
+import { buy, getAllBuys, getOwnBuys } from "../api/buyService.js";
 
 
-const detailsTemplate = (user, item, onDelete, onBuy) => html`
+const detailsTemplate = (item, buys, hasUser, canBuy, isOwner, onDelete, onBuy) => html`
 <section id="details">
     <div id="details-wrapper">
         <img id="details-img" src=${item.imageUrl} alt="example1" />
@@ -14,23 +15,23 @@ const detailsTemplate = (user, item, onDelete, onBuy) => html`
             Price: <span id="price-number">${item.price}</span>$</p>
         <div id="info-wrapper">
             <div id="details-description">
-                <h4>Bought: <span id="buys">0</span> times.</h4>
+                <h4>Bought: <span id="buys">0</span>${buys}</h4>
                 <span>${item.description}</span>
         </div>
     </div>
-    ${item.isOwner
-    ? html`
+    ${isOwner
+        ? html`
     <div id="action-buttons">
         <a href="/edit/${item._id}" id="edit-btn">Edit</a>
         <a @click=${onDelete} href="javascript:void(0)" id="delete-btn">Delete</a>
     </div>`
-    : nothing}
-    ${showBuyButton(user, item, onBuy)}
+        : nothing}
+    ${showBuyButton(hasUser, canBuy, onBuy)}
 </section>`;
 
-const showBuyButton = (user, item, onBuy) => {
-    if (user && !item.isOwner) {
-       return  html`
+const showBuyButton = (hasUser, canBuy, onBuy) => {
+    if (hasUser && canBuy) {
+        return html`
        <div id="action-buttons">
            <a @click=${onBuy} href="javascript:void(0)" id="buy-btn">Buy</a>
        </div>`;
@@ -39,32 +40,41 @@ const showBuyButton = (user, item, onBuy) => {
     }
 }
 export async function detailsView(ctx) {
-    const gameId = ctx.params.id;
-    const game = await gameService.getById(gameId);
-    const user = ctx.user;
-   
+    const productId = ctx.params.id;
 
-    if (ctx.user) {
-        game.isOwner = ctx.user._id == game._ownerId;
 
+    const requests = [
+        gameService.getById(productId),
+        getAllBuys(productId),
+
+    ]
+
+    const hasUser = Boolean(ctx.user);
+
+    if (hasUser) {
+        requests.push(getOwnBuys(productId, ctx.user._id))
     }
+    const [product, buys, hasBought] = await Promise.all(requests);
+
+    const isOwner = hasUser && ctx.user._id == product._ownerId;
+
+    const canBuy = !isOwner && hasBought == 0;
 
 
-    ctx.render(detailsTemplate(user, game, onDelete, onBuy));
+    ctx.render(detailsTemplate(product, buys, hasUser, canBuy, isOwner, onDelete, onBuy));
 
     async function onBuy() {
-        const choice = confirm(`Do you want to buy ${game.name}?`);
-        if (choice) {
-            await gameService.buy(gameId);
-            ctx.page.redirect('/catalog');
-        }
+
+        await buy(productId);
+        ctx.page.redirect('/details/' + productId);
+
     }
 
-    
+
     async function onDelete() {
-        const choice = confirm(`Do you want to delete ${game.name}?`);
+        const choice = confirm(`Do you want to delete ${product.name}?`);
         if (choice) {
-            await gameService.deleteById(gameId);
+            await gameService.deleteById(productId);
             ctx.page.redirect('/catalog');
         }
     }

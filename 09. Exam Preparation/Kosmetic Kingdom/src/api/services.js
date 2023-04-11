@@ -7,18 +7,14 @@ const endpoints = {
     byId: '/data/products/',
     deleteById: '/data/products/',
     edit: '/data/products/',
-    buy: '/data/bought'
+   
 };
 
 // export async function getRecent() {
 //     return api.get(endpoints.recent);
 // }
 
-export async function buy(data) {
-    return api.post(endpoints.buy,{
-        data
-    });
-}
+
 
 export async function getAll() {
     return api.get(endpoints.getAllGames);
